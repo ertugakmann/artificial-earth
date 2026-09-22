@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  --color-space-950: #05081a;
+  --color-space-900: #0a1030;
+  --color-space-800: #131c4a;
+  --color-space-700: #1f2b66;
+  --color-mint-300: #b6f5b6;
+  --color-mint-400: #90ee90;
+  --color-mint-500: #5fd97a;
+  --color-mint-600: #3cbf5e;
+  --font-display: ui-rounded, "SF Pro Rounded", "Nunito", "Segoe UI", system-ui, sans-serif;
+  --font-body: ui-rounded, "SF Pro Rounded", "Nunito", "Segoe UI", system-ui, sans-serif;
+  --shadow-glow-mint: 0 0 24px rgba(144, 238, 144, 0.45);
+  --animate-pulse-slow: pulse 2.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-space-950);
+  color: #f3f6ff;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hide scrollbars on the horizontal continent navigation while keeping it scrollable */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Thin translucent scrollbar for the information panel */
+.panel-scroll::-webkit-scrollbar { width: 6px; }
+.panel-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.18); border-radius: 999px; }
