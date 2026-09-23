@@ -5,13 +5,11 @@ const numberFormat = new Intl.NumberFormat('en-IE', { maximumFractionDigits: 2 }
 
 /** Turn a raw DataPoint into something a FactCard can render. */
 export function toDisplayFact(point: DataPoint): DisplayFact {
-  const number = point.display ?? numberFormat.format(point.value)
-  const headline =
-    point.unit === '%'
-      ? `${number}%`
-      : point.display
-        ? number
-        : `${number} ${point.unit}`
+  const headline = point.display
+    ? point.display
+    : point.unit === '%'
+      ? `${numberFormat.format(point.value)}%`
+      : `${numberFormat.format(point.value)} ${point.unit}`
 
   return {
     id: point.id,

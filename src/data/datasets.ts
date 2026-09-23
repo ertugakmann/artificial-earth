@@ -170,6 +170,76 @@ export const dataPoints: DataPoint[] = [
     publisher: 'KPMG',
     note: 'Singapore is a small country but a big home for computers.',
   },
+  // ---- Africa: IMF job-risk estimate ----
+  {
+    id: 'africa-jobs-at-risk',
+    label: 'of jobs in Sub-Saharan Africa could be at risk from AI',
+    value: 13,
+    unit: '%',
+    region: 'Sub-Saharan Africa',
+    sourceSheet: 'AI Pros and Cons by Continent.pdf',
+    publisher: 'IMF estimate',
+    note: 'That means about 13 out of every 100 jobs — not all of them, and not right away.',
+  },
+
+  // ---- North America: AI-skilled workforce growth ----
+  {
+    id: 'na-ai-tech-workers-growth',
+    label: 'growth in AI-skilled tech workers in one year',
+    value: 45,
+    unit: '%',
+    region: 'United States & Canada',
+    sourceSheet: 'AI Pros and Cons by Continent.pdf',
+    publisher: 'CBRE',
+    note: 'Lots of people are learning new AI skills for work.',
+  },
+
+  // ---- South America: economic outlook estimates ----
+  {
+    id: 'sa-economic-output-potential',
+    label: 'possible boost to economic output over the next decade',
+    value: 5.1,
+    unit: '%',
+    region: 'Latin America & the Caribbean',
+    sourceSheet: 'AI Pros and Cons by Continent.pdf',
+    publisher: 'Inter-American Development Bank estimate',
+    note: 'This is only possible if AI is adopted well — it is not guaranteed.',
+  },
+  {
+    id: 'sa-jobs-at-risk',
+    label: 'of jobs in the region are at risk of full automation',
+    value: 3.5,
+    display: '2–5%',
+    unit: '%',
+    region: 'Latin America & the Caribbean',
+    sourceSheet: 'AI Pros and Cons by Continent.pdf',
+    publisher: 'World Bank estimate',
+  },
+
+  // ---- Oceania: AI job-advertisement growth ----
+  {
+    id: 'oceania-ai-job-ads-growth',
+    label: 'more job ads asked for AI skills between 2024 and 2025',
+    value: 2,
+    display: '2×',
+    unit: '×',
+    region: 'Australia',
+    sourceSheet: 'AI Pros and Cons by Continent.pdf',
+    publisher: 'Job advertisement data',
+    note: 'That means job ads asking for AI skills doubled in just one year.',
+  },
+
+  // ---- Antarctica: satellite research example ----
+  {
+    id: 'antarctica-satellite-missions',
+    label: 'satellite missions used to study changes in Antarctic ice',
+    value: 27,
+    unit: 'missions',
+    region: 'Antarctica',
+    sourceSheet: 'AI Pros and Cons by Continent.pdf',
+    publisher: 'Satellite ice research',
+    note: 'AI helped process all that data, though this study alone does not prove AI caused the changes found.',
+  },
 ]
 
 /**

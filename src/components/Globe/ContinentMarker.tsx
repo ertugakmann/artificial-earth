@@ -26,7 +26,9 @@ export function ContinentMarker({ continent, selected, onSelect, onHover }: Prop
   const [facingCamera, setFacingCamera] = useState(true)
 
   const { position, quaternion } = useMemo(() => {
-    const pos = latLngToVector3(continent.marker, EARTH_RADIUS * 1.012)
+    // Offset kept clear of a selected continent's raised surface (which can
+    // reach ~1.142 * EARTH_RADIUS), so the marker never sinks into it.
+    const pos = latLngToVector3(continent.marker, EARTH_RADIUS * 1.22)
     const normal = pos.clone().normalize()
     const q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 0, 1), normal)
     return { position: pos, quaternion: q }

@@ -1,41 +1,32 @@
 import * as THREE from 'three'
-import { allRings } from './continentShapes'
-import { continents } from '../data/continents'
 import { lngLatToXY } from './geo'
 
 const WIDTH = 2048
 const HEIGHT = 1024
 
-/** Hex colour → slightly darker/lighter variant for strokes and depth. */
-function shade(hex: string, amount: number): string {
-  const c = new THREE.Color(hex)
-  const hsl = { h: 0, s: 0, l: 0 }
-  c.getHSL(hsl)
-  c.setHSL(hsl.h, Math.min(1, hsl.s * 0.9), Math.max(0, Math.min(1, hsl.l + amount)))
-  return `#${c.getHexString()}`
+let cached: THREE.CanvasTexture | null = null
+let cachedCtx: CanvasRenderingContext2D | null = null
+let lastWaterLevel = 100
+
+/** Interpolate between two hex colours. */
+function lerpHex(a: string, b: string, t: number): string {
+  const ca = new THREE.Color(a)
+  const cb = new THREE.Color(b)
+  return `#${ca.lerp(cb, t).getHexString()}`
 }
 
-let cached: THREE.CanvasTexture | null = null
+function paintOcean(ctx: CanvasRenderingContext2D, waterLevel: number) {
+  const dryness = 1 - THREE.MathUtils.clamp(waterLevel, 0, 100) / 100
 
-/**
- * Draw a stylised equirectangular Earth onto a canvas.
- * Continents are filled with the same colour as their navigation card, so the
- * globe and the UI read as one system. No image assets are needed, so the
- * project runs fully offline.
- */
-export function createEarthTexture(): THREE.CanvasTexture {
-  if (cached) return cached
+  const topColor = lerpHex('#173a7a', '#8a6a3f', dryness)
+  const midColor = lerpHex('#2f6fd1', '#c9a86a', dryness)
 
-  const canvas = document.createElement('canvas')
-  canvas.width = WIDTH
-  canvas.height = HEIGHT
-  const ctx = canvas.getContext('2d')!
+  ctx.clearRect(0, 0, WIDTH, HEIGHT)
 
-  // Ocean: deep blue with a lighter band near the equator.
   const ocean = ctx.createLinearGradient(0, 0, 0, HEIGHT)
-  ocean.addColorStop(0, '#173a7a')
-  ocean.addColorStop(0.5, '#2f6fd1')
-  ocean.addColorStop(1, '#173a7a')
+  ocean.addColorStop(0, topColor)
+  ocean.addColorStop(0.5, midColor)
+  ocean.addColorStop(1, topColor)
   ctx.fillStyle = ocean
   ctx.fillRect(0, 0, WIDTH, HEIGHT)
 
@@ -57,32 +48,46 @@ export function createEarthTexture(): THREE.CanvasTexture {
     ctx.stroke()
   }
 
-  const colourByContinent = new Map<string, string>()
-  for (const c of continents) colourByContinent.set(c.naturalEarthName, c.color)
-
-  ctx.lineJoin = 'round'
-  for (const { continent, ring } of allRings()) {
-    const base = colourByContinent.get(continent) ?? '#9aa7c2'
-    ctx.beginPath()
-    ring.forEach(([lng, lat], i) => {
-      const { x, y } = lngLatToXY(lng, lat, WIDTH, HEIGHT)
-      if (i === 0) ctx.moveTo(x, y)
-      else ctx.lineTo(x, y)
-    })
-    ctx.closePath()
-    ctx.fillStyle = shade(base, -0.06)
-    ctx.fill()
-    ctx.strokeStyle = shade(base, -0.22)
-    ctx.lineWidth = 2
-    ctx.stroke()
-  }
-
-  // Soft polar caps so the top and bottom of the sphere look finished.
+  // Soft polar cap so the top of the sphere looks finished.
   const capTop = ctx.createLinearGradient(0, 0, 0, 40)
   capTop.addColorStop(0, 'rgba(230,240,255,0.7)')
   capTop.addColorStop(1, 'rgba(230,240,255,0)')
   ctx.fillStyle = capTop
   ctx.fillRect(0, 0, WIDTH, 40)
+}
+
+/**
+ * Redraws the ocean texture to reflect the current global water level,
+ * shifting its colour from healthy blue toward a dry sandy tan as water
+ * drops toward 0. Cheap: repaints the same cached canvas/texture in place.
+ */
+export function setWaterLevel(waterLevel: number) {
+  if (Math.abs(waterLevel - lastWaterLevel) < 0.15) return
+  lastWaterLevel = waterLevel
+  if (!cachedCtx || !cached) return
+  paintOcean(cachedCtx, waterLevel)
+  cached.needsUpdate = true
+}
+
+/**
+ * Draw the base ocean surface (with a faint graticule) onto a canvas.
+ *
+ * Land is no longer part of this texture: every continent is rendered as
+ * its own unified 3D mesh (see `continentLandGeometry.ts` /
+ * `ContinentLand.tsx`) so it can rise off the surface when selected and so
+ * its coastline can be traced without ever drawing internal country
+ * borders. This texture only needs to supply the ocean underneath.
+ */
+export function createEarthTexture(): THREE.CanvasTexture {
+  if (cached) return cached
+
+  const canvas = document.createElement('canvas')
+  canvas.width = WIDTH
+  canvas.height = HEIGHT
+  const ctx = canvas.getContext('2d')!
+  cachedCtx = ctx
+
+  paintOcean(ctx, lastWaterLevel)
 
   const texture = new THREE.CanvasTexture(canvas)
   texture.colorSpace = THREE.SRGBColorSpace

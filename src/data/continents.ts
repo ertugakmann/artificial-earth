@@ -20,16 +20,15 @@ export const continents: Continent[] = [
       'AI is used all over North America: in hospitals, schools, farms, transport, films and games. The United States and Canada are home to many of the world’s biggest AI companies and research labs.',
     good: [
       'Helps doctors and scientists with medical research.',
-      'Makes work faster and creates brand-new industries and jobs.',
-      'Powers apps for transport, banking and entertainment.',
+      'Creates brand-new industries and jobs.',
+      'More people are training for AI skills, and demand is growing fast in the US and Canada.',
     ],
     challenges: [
       'Some jobs may change or disappear.',
-      'People worry about privacy and false information online.',
-      'AI needs powerful computers that use lots of electricity and water.',
+      'People worry about privacy and misinformation online.',
+      "Experts are still checking how much AI is really helping the economy, and some younger workers in AI-heavy jobs have seen slower job growth.",
     ],
-    factIds: [],
-    dataNote: 'Our project dataset does not have numbers for North America yet.',
+    factIds: ['na-ai-tech-workers-growth'],
   },
   {
     id: 'south-america',
@@ -42,16 +41,15 @@ export const continents: Continent[] = [
       'AI could help farmers, doctors and teachers across South America, especially in places that are far away or hard to reach. New AI opportunities are growing across Latin America.',
     good: [
       'Gives farmers better weather and crop information.',
-      'Helps watch the climate and protect nature.',
-      'Brings healthcare and lessons to more people.',
+      'Helps watch the climate, protect nature, and bring healthcare and lessons to more people.',
+      'AI could help the region’s economy grow over the next ten years, if it is used well.',
     ],
     challenges: [
-      'Not everyone has good internet or computers.',
+      'Not everyone has good internet or computers, which could stop people benefiting from AI.',
       'Some communities could benefit less than others.',
-      'People have different levels of digital skills.',
+      'A small share of jobs in the region could be fully taken over by AI.',
     ],
-    factIds: [],
-    dataNote: 'Our project dataset does not have numbers for South America yet.',
+    factIds: ['sa-economic-output-potential', 'sa-jobs-at-risk'],
   },
   {
     id: 'europe',
@@ -94,16 +92,15 @@ export const continents: Continent[] = [
       'Across Africa, AI is helping doctors find diseases, giving farmers weather and crop information, improving education and helping run public services.',
     good: [
       'Helps doctors spot illnesses sooner.',
-      'Supports farmers with weather and crop advice.',
-      'Reaches people who live far from services.',
+      'Supports farmers with weather and crop advice — this has already helped grow more food in some countries.',
+      'AI lessons helped children learn faster in a pilot programme in Nigeria.',
     ],
     challenges: [
-      'Some places have limited internet, electricity and computers.',
-      'Not everyone has the digital skills to use AI.',
-      'AI could make gaps between communities bigger if some cannot access it.',
+      'Many places don’t have reliable electricity or fast internet.',
+      'Not enough people are trained yet to build and fix AI systems.',
+      'Experts think some jobs in the region could be affected by AI.',
     ],
-    factIds: [],
-    dataNote: 'Our project dataset does not have numbers for Africa yet.',
+    factIds: ['africa-jobs-at-risk'],
   },
   {
     id: 'asia',
@@ -117,12 +114,12 @@ export const continents: Continent[] = [
     good: [
       'Helps people and businesses work faster.',
       'Powers robots, factories and medicine.',
-      'Creates new jobs and economic opportunities.',
+      'Creates new jobs — though the skills companies want are changing fast.',
     ],
     challenges: [
       'Some jobs, especially routine ones, may be replaced.',
       'Worries about surveillance and data privacy.',
-      'Countries with better technology may benefit more, leaving others behind.',
+      'Countries and workers with better technology and training may benefit more, leaving others behind.',
     ],
     factIds: ['sg-dc-capacity-2025'],
   },
@@ -138,15 +135,14 @@ export const continents: Continent[] = [
     good: [
       'Helps people analyse information and finish tasks faster.',
       'Supports farming, mining and protecting the environment.',
-      'Can help plan for disasters and climate change.',
+      'More Australian job ads are asking for AI skills than ever before.',
     ],
     challenges: [
       'Islands are far apart, so infrastructure costs more.',
-      'Concerns about jobs, misinformation and data security.',
       'AI data centres need large amounts of electricity.',
+      'Jobs that use AI a lot have grown a little more slowly — but there’s no sign yet of AI causing big job losses across the country.',
     ],
-    factIds: [],
-    dataNote: 'Our project dataset does not have numbers for Oceania yet.',
+    factIds: ['oceania-ai-job-ads-growth'],
   },
   {
     id: 'antarctica',
@@ -164,10 +160,9 @@ export const continents: Continent[] = [
     challenges: [
       'The computers still need electricity in a very remote place.',
       'Equipment is expensive and internet is limited.',
-      'Scientists must check that AI gives accurate results.',
+      'Scientists always double-check AI’s work — one big ice study, for example, doesn’t prove on its own that AI caused the changes it found.',
     ],
-    factIds: [],
-    dataNote: 'Our project dataset does not have numbers for Antarctica yet.',
+    factIds: ['antarctica-satellite-missions'],
   },
 ]
 
